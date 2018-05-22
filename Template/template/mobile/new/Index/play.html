@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../Static/css/Mdefault.css"/>
+    <link rel="stylesheet" type="text/css" href="../Static/css/Mindex.css"/>
+    <link rel="stylesheet" type="text/css" href="../Static/css/player.css"/>
+    <link href="../Static/css/mui.min.css" rel="stylesheet"/>
+	<style>
+	</style>
+</head>
+<body>
+	<div class="page">
+		<div class="header"></div>
+		<div class="player">
+			<div class="player_l_all" data-id="{$one_user['id']}">
+				<div class="player_l" style="background: url(__IMG__/椭圆-7@2x.png) no-repeat;background-size:100% 100%;">
+					<div class="player_l_icon">
+						<img src=""/>
+					</div>
+				</div>
+				<span class="player_name">王者战队</span>
+			</div>
+			<div class="m_time">
+				<span id="num_t">10</span>s			
+			</div>
+			<div class="player_r_all"  data-id="1">
+				<div class="player_r">
+					<div class="player_r_icon">
+						<img src="im"/>
+					</div>
+				</div>
+				<span class="player_name1">巅峰战队</span>
+			</div>
+		</div>
+		<div class="qustion_m">
+			<p class="title"></p>
+			<div class="qustion_m_center">
+				<div class="play_l_point">
+					<p class="m_point_l"></p>
+					<div id="pint_l" class="mui-progressbar">
+						<span></span>
+					</div>
+				</div>
+				<div class="play_m_qustion">
+					<ul class="m_answer">
+						    <li class="m_answeritem m_no">壶口瀑布
+						      <span id="no_l">x</span>
+						      <span id="no_r">x</span>
+						    </li>
+							<li class="m_answeritem">庐山瀑布</li>
+							<li class="m_answeritem">孔瀑布</li>
+							<li class="m_answeritem m_yes">黄果树瀑布
+							  <span class="yes_l"></span>
+							  <span class="yes_r"></span>
+							</li>
+					</ul>
+				</div>
+				<div class="play_r_point">
+					<p class="m_point_r"></p>
+					<div id="pint_r" class="mui-progressbar">
+						<span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<audio src="../Static/music/错误 .mp3"  id="music_wrong"></audio>
+		<audio src="../Static/music/正确.mp3"  id="mymusic_ture"></audio>
+		<audio src="../Static/music/倒计时.mp3"  id="mymusic_time"></audio>
+	<!--问题id-->
+	</div>
+	
+</body>
+<script src="../Static/js/mui.min.js"></script>
+<script src="../Static/js/font-size.js" type="text/javascript" charset="utf-8"></script>
+<script src="../Static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+ <script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	mui("#pint_l").progressbar({progress:40}).show();
+      	mui("#pint_r").progressbar({progress:30}).show();
+      	  var h= document.documentElement.clientHeight || document.body.clientHeight;
+	   	  $(".page").height(h+100+"px");
+	   	  $(".login").css("transform","translateY("+h/3+"px)");
+	   	  
+
+
+
+  </script>
+  
+</html>

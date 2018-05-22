@@ -1,0 +1,210 @@
+.player{
+	position: absolute;
+	top: 4rem;
+	left: 0;
+	width: 100%;
+	height: 7rem;
+	display: flex;
+	justify-content:space-between;
+	align-items: flex-end;
+}
+.player_l_all,.player_r_all{
+	text-align: center;
+	width: 33%;
+	height: 7rem;
+}
+.player_l,.player_r{
+	position: relative;
+	width: 100%;
+	height:7rem;
+}
+.player_l{
+	background: url(../images/椭圆-7@2x.png) no-repeat ;
+	background: 100% 100%;
+}
+.player_r{
+	background:url(../images/椭圆-7-拷贝@2x.png) no-repeat;
+	background-size:100% 100%;
+}
+.m_time{
+	letter-spacing: 2px;
+	color: #FFB301;
+	font-size: 0.8rem;
+	text-align: center;
+	line-height:2;
+	width: 20%;
+	height: 35%;
+	background:url(../images/倒计时@2x.png) no-repeat ;
+	background-size:100% 100%;
+}
+.player_l_icon,.player_r_icon{
+	border-radius: 50%;
+	bottom: 1rem;
+	position: absolute;
+	width: 3.1rem;
+	height: 3.1rem;
+}
+.player_l_icon{
+	right: 1rem;
+}
+.player_l_icon img,.player_r_icon img{
+	width: 100%;
+	height: 100%;
+}
+.player_r_icon{
+	left: 1rem;
+}
+#num_t{
+	font-size: 1.2rem;
+}
+.player_name,.player_name1{
+	position: absolute;
+	font-size: 0.9rem;
+	color: white;
+	bottom: -1.4rem;
+}
+.player_name{
+	left: 1.3rem;
+}
+.player_name1{
+	right: 1.3rem;
+}
+.qustion_m{
+	position: absolute;
+	top: 13rem;
+	left: 5%;
+	text-align: center;
+	width: 90%;
+	height: 11rem;
+	margin: auto;
+}
+.title{
+	margin-bottom: 1rem;
+	color: white;
+	font-size: 0.6rem;
+}
+.qustion_m_center{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	width: 100%;
+	height: 10rem;
+}
+.play_l_point,.play_r_point{
+	text-align: center;
+	position: relative;
+	width: 15%;
+	height: 100%;
+}
+.play_m_qustion{
+	width: 50%;
+	height: 80%;
+}
+.m_point_l,.m_point_r{
+	color: white;
+	font-size: 0.8rem;
+	margin-bottom: 1rem;
+}
+#pint_l,#pint_r{
+	background: #FFB301;
+	border-radius:10px ;
+	left: -3rem;
+	position: absolute;
+	bottom:3.5rem;
+	transform:rotate(-90deg) ;
+	width: 8rem;
+	height: 5%;
+}
+#pint_l span,#pint_r span{
+	background: white;
+}
+.m_answer li{
+	position: relative;
+	border-radius:0.8rem;
+	width: 100%;
+	height: 1.3rem;
+	margin-top: 0.8rem;
+	background: white;
+}
+.m_answeritem{
+	color: #FFB301;
+	font-size: 0.8rem;
+	text-align: center;
+	line-height: 1.3rem;
+}
+.m_no{
+	color: white;
+	background:#ff0000 !important;
+}
+#no_l,#no_r{
+	display: block;
+	position: absolute;
+	font-size: 0.8rem;
+	top: 0;
+}
+#no_l{
+	left: 0.5rem;
+}
+#no_r{
+	right: 0.5rem;
+}
+.m_yes{
+	line-height: 1.3;
+	color: white;
+	border:5px solid rgba(255,201,75,0.8);
+	background: #FFB301 !important;
+}
+.yes_l,.yes_r{
+	display: inline-block;
+	position: absolute;
+	width: 0.7rem;
+	height: 0.7rem;
+	border: 5px solid white;
+	border-radius: 50%;
+	top: 0.2rem;
+}
+.yes_l{
+	left: 0.5rem;
+}
+.yes_r{
+	right: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

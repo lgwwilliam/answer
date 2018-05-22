@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>答题对战</title>
+		<link rel="stylesheet" type="text/css" href="/pc/Static/css/result.css"/>
+	</head>
+	<body>
+		<div id="content" class="answer">
+			<div class="haha"></div>
+            <div class="content">
+            	<p class="win_team">胜者：{{winner.name}}</p>
+            	<div class="win_icon">
+            		<img v-bind:src="winner.avatar"/>
+            	</div>
+            	<p class="point_all"><br />当前的分：{{winner.score}}分</p>
+            	<div class="next_begin" v-on:click="nextGame">
+            		进入下一轮
+            	</div>
+            </div>
+            <div style="width: 400px;height: 100%;"></div>
+	    </div>
+	</body>
+	<script src="/pc/Static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/pc/Static/js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/src/layer/layer.js"></script>
+	<script src="/src/js/vue.js"></script>
+	<script src="/src/js/fun.js"></script>
+
+<script>
+	var app = new Vue({
+		el:"#content",
+		data:{
+		    gameId:"{$_GET['game_id']}",
+			winner:{}
+		},
+		methods:{
+		    getWinner:function () {
+				var that = this;
+				$.ajax({
+					type:'get',
+					url:"/Home/Common/Api/getWinner",
+					data:{game_id:this.gameId},
+					dataType:'json',
+					async:false,
+					success:function (res) {
+						if(res.code==0){
+						    that.winner=res.data;
+						}
+                    }
+
+				});
+            },
+			nextGame:function () {
+				location.href = '/Home/Screen/Index/index'
+            }
+		},
+		created:function () {
+			this.getWinner();
+        }
+	});
+</script>
+</html>

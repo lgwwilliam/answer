@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>答题对战</title>
+		<link rel="stylesheet" type="text/css" href="../Static/css/index.css"/>
+		<style>
+			
+			.ready{
+					color: white;
+					font-weight: bold;
+					font-size: 28px;
+					text-align: center;
+					line-height: 190px;
+					width: 100%;
+					height: 190px;
+					background-size:100% 100%;
+				    background:url(../Static/img/椭圆-7-拷贝@2x.png) no-repeat center center;
+			}
+			.noready{
+				background: url(../Static/img/椭圆-7-@2x.png) no-repeat center center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="content" class="index">
+			<div class="center">
+				<div class="team">
+					<div class="team_l">
+						<div class="team_icon">
+							<img src="../Static/img/微信图片_20180427093625@2x.png"/>
+						</div>
+						<div class="team_name">
+							<p class="name">巅峰战队</p>
+							
+						</div>
+						<!--style="background: url(__IMG__/椭圆-7-拷贝@2x.png) no-repeat center center;"-->
+						<div class="ready"   id=""   >
+							未准备
+						</div>
+					</div>
+					<div class="team_r">
+						<div class="team_icon">
+							<img src="../Static/img/微信图片_20180427093625@2x.png"/>
+						</div>
+						<div class="team_name">
+							<p class="name">王者战队</p>
+							
+						</div>
+						<!--style="background: url(__IMG__/椭圆-7-@2x.png) no-repeat center center;"-->
+						<div class="noready"  id="" >
+							未准备
+						</div>
+					</div>
+				</div>
+				<div id="begin">开始游戏</div>
+			</div>
+			<div class="time">
+				<div class="time_Lbg"></div>
+				<div class="time_M">
+					<img src="../Static/img/3@2x.png"/>
+				</div>
+				<div class="time_Rbg"></div>
+			</div>
+		</div>
+	</body>
+	<script src="../Static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="../Static/js/index.js" type="text/javascript" charset="utf-8"></script>
+
+	<script>
+        
+        var time=3;
+        var clear;
+        $('#begin').click(function(){
+            $(".center").css("display","none");
+            $(".time").css("opacity",1);
+                      clear=setInterval(function(){
+                        time--;
+                        console.log(time)
+                        if(time==2){
+                            $(".time_M img").attr("src",'../Static/img/2@2x.png')
+                        }else if(time==1){
+                            $(".time_M img").attr("src",'../Static/img/1@2x.png')
+
+                        }else if(time==0){
+                            clearInterval(clear)
+                            window.location.href = resp.url;
+                        }
+
+                    },1000)
+
+                
+
+              
+            });
+       
+
+
+	</script>
+
+</html>

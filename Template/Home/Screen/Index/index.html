@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>答题对战</title>
+		<link rel="stylesheet" type="text/css" href="/pc/Static/css/index.css"/>
+		<style>
+			.ready{
+					color: white;
+					font-weight: bold;
+					font-size: 28px;
+					text-align: center;
+					line-height: 190px;
+					width: 100%;
+					height: 190px;
+					background-size:100% 100%;
+				    background:url(/pc/Static/img/椭圆-7-拷贝@2x.png) no-repeat center center;
+			}
+			.noready{
+				background: url(/pc/Static/img/椭圆-7-@2x.png) no-repeat center center;
+			}
+			.time{
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="content" class="index">
+			<template v-if="start==false">
+			<div class="center">
+				<div class="team">
+					<div class="team_l">
+						<div class="team_icon">
+							<img v-bind:src="playerA.avatar"/>
+						</div>
+						<div class="team_name">
+							<p class="name">{{playerA.name}}</p>
+						</div>
+						<template v-if="playerAReady"><div class="ready"   id=""   >已准备</div></template>
+						<template v-else><div class="noready"  id="" >未准备</div></template>
+					</div>
+					<div class="team_r">
+						<div class="team_icon">
+							<img v-bind:src="playerB.avatar"/>
+						</div>
+						<div class="team_name">
+							<p class="name">{{playerB.name}}</p>
+						</div>
+						<template v-if="playerBReady"><div class="ready"   id=""   >已准备</div></template>
+						<template v-else><div class="noready"  id="" >未准备</div></template>
+					</div>
+				</div>
+				<div id="begin" v-on:click="startGame">开始游戏</div>
+			</div>
+			</template>
+		</div>
+	</body>
+	<script src="/pc/Static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/src/layer/layer.js"></script>
+    <script src="/src/js/vue.js"></script>
+	<script src="/src/js/fun.js"></script>
+	<script src="/pc/Static/js/index.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+	var app = new Vue({
+		el:"#content",
+		data:{
+		    ws:'',
+			timer:'',
+		    start:false,
+			lock:false,
+            timeImgSrc:'/pc/Static/img/3@2x.png',
+			game:{},
+			questions:[],
+			playerA:{},
+			playerB:{},
+			playerAReady:false,
+			playerBReady:false,
+		},
+		methods:{
+		    startGame:function () {
+				if(!this.playerAReady || !this.playerBReady){
+				    layermsg('请等待双方都准备好后再开始');return;
+				}
+				location.href='/Home/Screen/Index/play'
+            },
+			getPlayers:function () {
+				var that=this;
+				$.get('/Home/Common/Api/getPlayers',function (res) {
+					if(res.code==0){
+					    that.playerA=res.data.player_a;
+					    that.playerB=res.data.player_b;
+					}else{
+					    layermsg(res.message);
+					}
+                })
+            },
+			getQuestions:function () {
+				var that = this;
+				$.ajax({
+					type:'get',
+					url:'/Home/Common/Api/getAllQuestions',
+					dataType:'json',
+					success:function (res) {
+						if(res.code==0){
+						    that.questions=res.data;
+						}else{
+						    layermsg('加载题库失败');
+						}
+                    }
+				});
+            },
+            iniConnect: function () {
+                var that = this;
+                this.ws = new WebSocket("ws://{$_SERVER['SERVER_NAME']}:8282");
+                this.ws.onmessage = function (e) {
+                    // json数据转换成js对象
+                    var terminal = 'screen';
+                    var data = eval("(" + e.data + ")");
+                    var type = data.type || '';
+                    var _data = data.data || [];
+                    console.log(data);
+                    switch (type) {
+                        case 'init':
+                            $.post('/Home/Common/Api/bindClient', {
+                                client_id: data.client_id,
+                                terminal: terminal
+                            }, function (resp) {
+                                that.serverState = 1;
+                                console.log(resp);
+                            }, 'json');
+                            break;
+                        case 'start':
+
+                            break;
+                        case 'game':
+                            that.game=_data;
+                            break;
+						case 'ready':
+						    if(_data.team=='a'){
+						        that.playerAReady=true;
+							}else if(_data.team=='b'){
+						        that.playerBReady=true;
+							}
+						    break;
+                        case 'over':
+                            location.href='/Home/Screen/Index/result?game_id='+_data.game_id;
+                            break;
+                        case 'question':
+
+                        default :
+                    }
+                };
+                this.ws.onopen = function () {
+                    that.serverState = 1;
+                    window.clearInterval(that.timer);
+                };
+                this.ws.onerror = function () {
+                    console.log('error');
+                    layermsg('连接服务器出错');
+                    that.serverState = 0;
+                    window.clearInterval(that.timer);
+                    that.timer = setInterval(function () {
+                        that.iniConnect();
+                    }, 5000);
+                };
+                this.ws.onclose = function () {
+                    console.log('close');
+                    layermsg('服务器断开');
+                    that.serverState = 0;
+                    window.clearInterval(that.timer);
+                    that.timer = setInterval(function () {
+                        that.iniConnect();
+                    }, 8000);
+                };
+            }
+		},
+		created:function () {
+		    this.iniConnect();
+			this.getPlayers();
+			this.getQuestions();
+        }
+	});
+</script>
+
+</html>

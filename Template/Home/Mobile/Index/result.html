@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/mobile/Static/css/Mdefault.css"/>
+    <link rel="stylesheet" type="text/css" href="/mobile/Static/css/Mindex.css"/>
+    <link rel="stylesheet" type="text/css" href="/mobile/Static/css/ready.css"/>
+    <link href="/mobile/Static/css/mui.min.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="page page-ready" id="app">
+		<div class="header-time"></div>
+		<div class="result_content">
+			<div class="result_team">
+				<div class="result_icon"><img v-bind:src="winner.avatar"/></div>
+				<p class="t_name">{{winner.name}}</p>
+				<p class="t_point">分数 <span class="t_point_s">{{winner.score}}</span>分</p>
+			</div>
+			<div class="result_bg">
+					<img src="/mobile/Static/images/WINNER@2x.png"/>
+			</div>
+			<div class="again" v-on:click="nextGame">
+				进入下一轮
+			</div>
+		</div>
+	</div>
+</body>
+<script src="/mobile/Static/js/mui.min.js"></script>
+<script src="/mobile/Static/js/font-size.js" type="text/javascript" charset="utf-8"></script>
+<script src="/mobile/Static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/src/layer/layer.js"></script>
+<script src="/src/js/vue.js"></script>
+<script src="/src/js/fun.js"></script>
+<script>
+	var app = new Vue({
+		el:"#app",
+		data:{
+		    gameId:"{$_GET['game_id']}",
+			winner:{}
+		},
+		methods:{
+		    nextGame:function () {
+				location.href='/Home/Mobile/Index/ready'
+            }
+		},
+		created:function () {
+			var that=this;
+            $.ajax({
+                type:'get',
+                url:"/Home/Common/Api/getWinner",
+                data:{game_id:this.gameId},
+                dataType:'json',
+                async:false,
+                success:function (res) {
+                    if(res.code==0){
+                        that.winner=res.data;
+                    }
+                }
+
+            });
+        }
+	});
+</script>
+</html>
